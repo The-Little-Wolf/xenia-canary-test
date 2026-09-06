@@ -150,11 +150,14 @@ void ContentListDialog::OnEntryDraw(ImGuiIO& io, const XContentType type,
                         ImGuiSelectableFlags_SpanAllColumns,
                         end_draw_position)) {
     selected_entry_ = entry.index;
-    ImGui::OpenPopup(fmt::format("Popup-{}", xe::to_utf8(entry.name)).c_str());
+    ImGui::OpenPopup(
+        fmt::format("##{}Popup-{}", entry.index, xe::to_utf8(entry.name))
+            .c_str());
   }
 
   if (ImGui::BeginPopupContextItem(
-          fmt::format("Popup-{}", xe::to_utf8(entry.name)).c_str())) {
+          fmt::format("##{}Popup-{}", entry.index, xe::to_utf8(entry.name))
+              .c_str())) {
     selected_entry_ = entry.index;
 
     if (isBootableType(type)) {
